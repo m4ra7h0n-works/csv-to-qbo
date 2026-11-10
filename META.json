@@ -1,0 +1,13 @@
+{
+  "description": "Convert one checking-account CSV to a QBO statement with a supplied ledger balance; QuickBooks import unverified.",
+  "topics": [
+    "python",
+    "csv-to-qbo",
+    "qbo",
+    "web-connect",
+    "quickbooks",
+    "bank-transactions",
+    "cli",
+    "converter"
+  ]
+}
