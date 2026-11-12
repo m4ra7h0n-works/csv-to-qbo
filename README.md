@@ -4,6 +4,42 @@ Convert one checking-account CSV to a QBO statement with a supplied ledger balan
 
 **Import status:** The output includes the sign-on response, bank/account identity, dated transaction list and `LEDGERBAL` with your actual closing balance and its date. It has not been verified by importing into a real QuickBooks account. A complete statement structure does not guarantee bank or Intuit acceptance. No balance is invented or calculated from transaction totals.
 
+## Example
+
+Fictional input and bank identifiers for inspection only; real QuickBooks import remains unverified.
+
+Input ([full file](examples/example-input.csv)):
+
+```csv
+date,description,amount
+2026-01-02,Sample supplies,-12.50
+2026-01-03,Sample refund,100.00
+```
+
+Run from the repository after installation (choose a new output path):
+
+```sh
+python -m csv_to_qbo examples/example-input.csv transactions.qbo \
+  --bank-id 000000000 --account-id 000001 --fid 00000 \
+  --org "Fictional Bank" --intu-bid 00000 \
+  --closing-balance 587.50 --balance-date 2026-01-31
+```
+
+Actual CLI output (transaction excerpt) ([full generated file](examples/example-output.qbo)):
+
+```text
+<STMTTRN>
+<TRNTYPE>DEBIT
+<DTPOSTED>20260102120000
+<TRNAMT>-12.50
+<FITID>72a5a4b2d05f889250d4cd7be5fa1447
+<NAME>Sample supplies
+<MEMO>Sample supplies
+</STMTTRN>
+```
+
+Need XLSX, balance checks or previews? Use the online version: <https://csvqbo.pivlu.com/?utm_source=github&utm_medium=readme&utm_campaign=csv-to-qbo&utm_content=p111204>
+
 ## Install
 
 Python 3.10 or newer. From this repository:
@@ -82,7 +118,7 @@ See [examples/transactions.qbo](examples/transactions.qbo) for the full fictiona
 
 ## Online version
 
-[CSVqbo online](https://csvqbo.pivlu.com/?utm_source=github&utm_medium=readme&utm_campaign=csv-to-qbo) is a separate online version by the same author, Zijian Xiao. It needs no local installation and includes a preview with mapping, date, sign, duplicate and skipped-row checks. It generates QBO, QFX or OFX using your supplied bank identity and actual ledger balance; it does not guarantee bank or Intuit acceptance.
+[CSVqbo online](https://csvqbo.pivlu.com/?utm_source=github&utm_medium=readme&utm_campaign=csv-to-qbo&utm_content=p111204) is a separate online version by the same author, Zijian Xiao. It needs no local installation and includes a preview with mapping, date, sign, duplicate and skipped-row checks. It generates QBO, QFX or OFX using your supplied bank identity and actual ledger balance; it does not guarantee bank or Intuit acceptance.
 
 Free allowance, based on the supplied product information dated November 10, 2026:
 
